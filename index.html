@@ -1,0 +1,77 @@
+<style>
+input[type=text] {
+  -webkit-appearance: none; -moz-appearance: none;
+  display: block;
+  margin: 0;
+  width: 100%; height: 160px;
+  font-size: 68px;
+  border: 1px solid #bbb;
+  -webkit-margin-before: 0.67em;
+  -webkit-margin-after: 0.67em;
+}
+
+input[type=button],[type=submit] {
+ -webkit-appearance: none; -moz-appearance: none;
+ display: block;
+ font-size: 68px;
+ color: #333;
+ font-weight: bold;
+ height: 160px; width: 100%;
+ background: #fdfdfd; background: -moz-linear-gradient(top, #fdfdfd 0%, #bebebe 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#bebebe)); background: -webkit-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -o-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: -ms-linear-gradient(top, #fdfdfd 0%,#bebebe 100%); background: linear-gradient(to bottom, #fdfdfd 0%,#bebebe 100%);
+ border: 1px solid #bbb;
+ -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;
+ }
+ 
+ h1{
+ -webkit-appearance: none; -moz-appearance: none;
+ display: block;
+ font-size: 68px;
+ font-weight: bold;
+
+}
+
+</style>
+
+<h1>Record Contractions</h1>
+        
+    <form id="contractions" onsubmit="formSubmit(this)">
+
+      <input id="startTime" name="startTime" type="text" />
+      <input type="button" onclick="this.form.startTime.value=getTimeStamp()" value="Start Time" />
+    
+      <input id="endTime" name="endTime" type="text" />
+      <input type="button" onclick="this.form.endTime.value=getTimeStamp()" value="End Time" />
+    
+      <input id="comments" name="comments" placeholder="Comments" type="text" title="(Contraction Strength, Foods Eaten, Coping Method, Vainal Discharge, etc.)" />
+    
+      <input type="submit" class="form-control" value="Submit" />
+   
+   </form>
+
+<script type="text/javascript">
+
+ // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+
+
+  function formSubmit(formObject) {
+  google.script.run.processForm(formObject);
+  document.getElementById("contractions").reset();
+  }
+  
+  function getTimeStamp() {
+  var now = new Date();
+  return ((now.getMonth() + 1) + '/' + (now.getDate()) + '/' + now.getFullYear() + " " + now.getHours() + ':'
+                     + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' + ((now.getSeconds() < 10) ? ("0" + now
+                     .getSeconds()) : (now.getSeconds())));
+}
+  
+</script>
